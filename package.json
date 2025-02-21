@@ -1,0 +1,18 @@
+{
+  "name": "demo02-sequelize",
+  "version": "0.1.0",
+  "description": "Demo d'introduction à Sequelize",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file=.env app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Aurélien St",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.13.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5"
+  }
+}
