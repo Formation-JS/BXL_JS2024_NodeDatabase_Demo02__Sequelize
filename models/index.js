@@ -1,4 +1,5 @@
-import { Sequelize } from "sequelize";
+import { DataTypes, Sequelize } from "sequelize";
+
 
 //! Chargement des variables d'environnement
 const { DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD, DB_DIALECT } = process.env;
@@ -18,12 +19,22 @@ export const db = {
     sequelize
 };
 
+//! Définition des models
 
-
-
-
-
-
+sequelize.define(
+    // Nom du Model
+    'ingredient',
+    // Attributs
+    {
+        name: DataTypes.STRING(50),
+        allergen: DataTypes.BOOLEAN
+    },
+    // Options
+    {
+        tableName: "Ingredient",
+        timestamps: false
+    }
+)
 
 
 
