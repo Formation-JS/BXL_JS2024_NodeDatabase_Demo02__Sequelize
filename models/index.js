@@ -26,7 +26,11 @@ sequelize.define(
     'ingredient',
     // Attributs
     {
-        name: DataTypes.STRING(50),
+        name: {
+            type: DataTypes.STRING(50),
+            allowNull: false,
+            unique: 'UK_Ingredient__Name'
+        },
         allergen: DataTypes.BOOLEAN
     },
     // Options
