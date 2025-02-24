@@ -110,3 +110,15 @@ await recette1.addIngredient(i2, { through: { quantity: 30, unite: 'gr' } });
 await recette1.addIngredient(i3, { through: { quantity: 500, unite: 'gr' } });
 console.log();
 
+
+console.log('Récuperation de la recette créer');
+const id = recette1.id;
+
+const result = await db.Recette.findByPk(1, {
+    include: [
+        db.Plat,
+        db.Ingredient
+    ]
+})
+console.log(result.dataValues);
+
