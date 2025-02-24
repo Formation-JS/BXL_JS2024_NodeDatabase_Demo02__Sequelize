@@ -88,6 +88,44 @@ db.Plat = sequelize.define(
     }
 );
 
+db.RecetteIngredient = sequelize.define(
+    'Recette_Ingredient',
+    {
+        quantity: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            validate: {
+                // https://sequelize.org/docs/v6/core-concepts/validations-and-constraints/#per-attribute-validations
+                isPositive(value) {
+                    if(value <= 0) throw new Error('Negative quantity is not allow !');
+                } 
+            }
+        },
+        unite: {
+            type: DataTypes.STRING(50),
+            allowNull: false
+        }
+    },
+    {
+        tableName: 'Recette_Ingredient',
+        timestamps: false
+    }
+);
+
+//! Définition des relations
+//? [One to Many] Recette - Plat
+db.Plat.hasMany(db.Recette, { foreignKey: { allowNull: false } });
+db.Recette.belongsTo(db.Plat);
+
+//? [Many to Many] Recette - Ingredient
+//?  - Simple: Sans attributs !
+/*
+db.Recette.belongsToMany(db.Ingredient, { through : 'Recette_Ingredient' });
+db.Ingredient.belongsToMany(db.Recette, { through : 'Recette_Ingredient' });
+*/
+//?  - Via un modele: Permet de customiser la table intermediaire
+db.Recette.belongsToMany(db.Ingredient, { through : db.RecetteIngredient });
+db.Ingredient.belongsToMany(db.Recette, { through : db.RecetteIngredient });
 
 
 //! Export par default de l'objet « db »
