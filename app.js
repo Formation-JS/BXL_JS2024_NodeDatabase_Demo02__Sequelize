@@ -20,9 +20,9 @@ if(process.env.NODE_ENV === 'dev') {
 
     //? Méthode d'initialisation et modifier de la database
     //? - Toutes les modifications sont autorisées
-    await db.sequelize.sync({
-        alter: true
-    });
+    // await db.sequelize.sync({
+    //     alter: true
+    // });
     //? - Les modifications d'ajout sont autorisées
     // await db.sequelize.sync({
     //     alter: { drop: false }
@@ -33,3 +33,10 @@ if(process.env.NODE_ENV === 'dev') {
     //     force: true
     // })
 }
+
+// Utilisation de la DB via Sequelize
+// - Raw query
+const data = await db.sequelize.query('SELECT * FROM "Plat"');
+console.log(data);
+console.log();
+

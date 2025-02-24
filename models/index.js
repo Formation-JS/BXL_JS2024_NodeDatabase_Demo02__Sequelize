@@ -38,10 +38,57 @@ sequelize.define(
         tableName: "Ingredient",
         timestamps: false
     }
-)
+);
 
+sequelize.define(
+    // Nom du model
+    'recette',
+    // Les attributs
+    {
+        id: {
+            // Rappel, la clef primaire est "auto-généré" si elle n'est pas défini dans le model
+            type: DataTypes.BIGINT,
+            primaryKey: true,
+            autoIncrement:true,
+            autoIncrementIdentity: true
+        },
+        name: {
+            type: DataTypes.STRING(200),
+            allowNull: false
+        },
+        description: {
+            type: DataTypes.STRING(1000),
+            allowNull: true
+        }
+    },
+    // Les options
+    {
+        tableName: 'Recette',
+        updatedAt: false,
+        indexes: [
+            {
+                name: 'IDX_Recette__Name',
+                fields: ['name'],
+                unique: false
+            }
+        ]
+    }
+);
 
-
+sequelize.define(
+    'plat',
+    {
+        name: {
+            type: DataTypes.STRING(50),
+            unique: true,
+            allowNull: false
+        }
+    },
+    {
+        tableName: 'Plat',
+        timestamps: false
+    }
+);
 
 
 
