@@ -15,13 +15,11 @@ const sequelize = new Sequelize({
 });
 
 //! Objet « db » qui contient l'instance de sequelize et les infos des Models
-export const db = {
-    sequelize
-};
+export const db = {};
+db.sequelize = sequelize;
 
 //! Définition des models
-
-sequelize.define(
+db.Ingredient = sequelize.define(
     // Nom du Model
     'ingredient',
     // Attributs
@@ -40,7 +38,7 @@ sequelize.define(
     }
 );
 
-sequelize.define(
+db.Recette = sequelize.define(
     // Nom du model
     'recette',
     // Les attributs
@@ -49,7 +47,7 @@ sequelize.define(
             // Rappel, la clef primaire est "auto-généré" si elle n'est pas défini dans le model
             type: DataTypes.BIGINT,
             primaryKey: true,
-            autoIncrement:true,
+            autoIncrement: true,
             autoIncrementIdentity: true
         },
         name: {
@@ -75,12 +73,12 @@ sequelize.define(
     }
 );
 
-sequelize.define(
+db.Plat = sequelize.define(
     'plat',
     {
         name: {
             type: DataTypes.STRING(50),
-            unique: true,
+            unique: 'UK_Plat__Name',
             allowNull: false
         }
     },
