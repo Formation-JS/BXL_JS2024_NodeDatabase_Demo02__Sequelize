@@ -41,6 +41,7 @@ console.log(data);
 console.log();
 
 // - Utilisation de l'ORM
+/*
 console.log('Ajouter des plats');
 
 const p1 = { name: 'Salade' };
@@ -52,7 +53,7 @@ await db.Plat.bulkCreate([
     { name: 'Pizza'},
     { name: 'Burger'}
 ]);
-
+*/
 
 console.log('Tous les plats');
 const r1 = await db.Plat.findAll();
@@ -71,50 +72,50 @@ for(const plat of r2) {
 }
 console.log();
 
-console.log('Ajouter une recette de salade');
-console.log(' - Ingrédients');
-const i1 = await db.Ingredient.create({
-    name: 'Tomate',
-    allergen: false
-});
-const i2 = await db.Ingredient.create({
-    name: 'Fromage',
-    allergen: true,
-});
-const i3 = await db.Ingredient.create({
-    name: 'Mâche',
-    allergen: true,
-});
+// console.log('Ajouter une recette de salade');
+// console.log(' - Ingrédients');
+// const i1 = await db.Ingredient.create({
+//     name: 'Tomate',
+//     allergen: false
+// });
+// const i2 = await db.Ingredient.create({
+//     name: 'Fromage',
+//     allergen: true,
+// });
+// const i3 = await db.Ingredient.create({
+//     name: 'Mâche',
+//     allergen: true,
+// });
 
-console.log(' - Recette');
-const plat = await db.Plat.findOne({
-    where: { name: 'Salade' }
-})
+// console.log(' - Recette');
+// const plat = await db.Plat.findOne({
+//     where: { name: 'Salade' }
+// })
 
-const recette1 = await db.Recette.create({
-    name: 'Demo recette',
-    description: 'Exemple de recette',
-    platId: plat.id
-});
+// const recette1 = await db.Recette.create({
+//     name: 'Demo recette',
+//     description: 'Exemple de recette',
+//     platId: plat.id
+// });
 
-console.log(' - Ingredients de la Recette ');
-//? Simple: Sans table intermediaire customisé
-/*
-recette1.addIngredient(i1);
-recette1.addIngredient(i2);
-recette1.addIngredient(i3);
-*/
-//? Avec table intermediaire avec données non null
-await recette1.addIngredient(i1, { through: { quantity: 100, unite: 'gr' } });
-await recette1.addIngredient(i2, { through: { quantity: 30, unite: 'gr' } });
-await recette1.addIngredient(i3, { through: { quantity: 500, unite: 'gr' } });
-console.log();
+// console.log(' - Ingredients de la Recette ');
+// //? Simple: Sans table intermediaire customisé
+// /*
+// recette1.addIngredient(i1);
+// recette1.addIngredient(i2);
+// recette1.addIngredient(i3);
+// */
+// //? Avec table intermediaire avec données non null
+// await recette1.addIngredient(i1, { through: { quantity: 100, unite: 'gr' } });
+// await recette1.addIngredient(i2, { through: { quantity: 30, unite: 'gr' } });
+// await recette1.addIngredient(i3, { through: { quantity: 500, unite: 'gr' } });
+// console.log();
 
 
 console.log('Récuperation de la recette créer');
 const id = recette1.id;
 
-const result = await db.Recette.findByPk(1, {
+const result = await db.Recette.findByPk(id, {
     include: [
         db.Plat,
         db.Ingredient
